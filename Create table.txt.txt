@@ -1,0 +1,5 @@
+ create table Folder_A_meta(uuid_meta varchar(36) not null, filepath varchar(255) not null, file_ts datetime(3), primary key (uuid_meta)) engine=innodb;
+ create table Folder_B_meta(uuid_meta varchar(36) not null, filepath varchar(255) not null, file_ts datetime(3), primary key (uuid_meta)) engine=innodb;
+ create table Folder_C_meta(uuid_meta varchar(36) not null, filepath varchar(255) not null, file_ts datetime(3), primary key (uuid_meta)) engine=innodb;
+ create table Folder_D_meta(uuid_meta varchar(36) not null, filepath varchar(255) not null, file_ts datetime(3), predict_json json, primary key (uuid_meta)) engine=innodb;
+ 

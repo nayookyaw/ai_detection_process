@@ -1,0 +1,39 @@
+mysql> desc Folder_A_meta;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| uuid_meta | varchar(36)  | NO   | PRI | NULL    |       |
+| filepath  | varchar(255) | NO   |     | NULL    |       |
+| file_ts   | datetime(3)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc Folder_B_meta;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| uuid_meta | varchar(36)  | NO   | PRI | NULL    |       |
+| filepath  | varchar(255) | NO   |     | NULL    |       |
+| file_ts   | datetime(3)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+mysql> desc Folder_C_meta;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| uuid_meta | varchar(36)  | NO   | PRI | NULL    |       |
+| filepath  | varchar(255) | NO   |     | NULL    |       |
+| file_ts   | datetime(3)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+mysql> desc Folder_D_meta;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| uuid_meta    | varchar(36)  | NO   | PRI | NULL    |       |
+| filepath     | varchar(255) | NO   |     | NULL    |       |
+| file_ts      | datetime(3)  | YES  |     | NULL    |       |
+| predict_json | json         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
