@@ -9,6 +9,10 @@ import shutil
 
 print("start process")
 
+#ai_server_connect by phyo
+import ai_server_connect
+ai_server_image_encode_string = ""
+
 resizedFile = ""
 jsonBase64Path = ""
 
@@ -73,6 +77,7 @@ def convertImage(uuid_value, creationTS):
 
         with open(resizedFile, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            ai_server_image_encode_string = encoded_string
 #            print(encoded_string)
 
         # json_value =" { \"instances\" : [ { \"image_bytes\" : { \"b64\" :\"" + encoded_string + "\" }, \"key\" :\"" + readconfig.ImageKey + "\" } ] }" 
@@ -112,6 +117,9 @@ def convertImage(uuid_value, creationTS):
 
         #print(response.json()) 
         print("Save response from TensorFlow as %s" % jsonPredPath)
+
+        #ai_server_connect by phyo
+        ai_server_connect.send_data_to_ai_server(response, ai_server_image_encode_string)
 
     except Exception as e:
         misc.printerr("convertImage", e)
