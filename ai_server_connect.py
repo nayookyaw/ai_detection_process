@@ -21,18 +21,18 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                     }
                     if detection_scores_original :
                         ai_server_data["detection_scores"] = [i for i in detection_scores_original if i >= 0.4] 
-                    if detection_boxes_original and ai_server_data["detection_scores"] :
-                        for i in ai_server_data["detection_scores"] :
-                            index = detection_scores_original.index(i)
-                            if index == 0 or index :
-                                ai_server_data["detection_boxes"].append(detection_boxes_original[index])
+                    if ai_server_data["detection_scores"] :
+                        if detection_boxes_original :
+                            for i in ai_server_data["detection_scores"] :
+                                index = detection_scores_original.index(i)
+                                if index == 0 or index :
+                                    ai_server_data["detection_boxes"].append(detection_boxes_original[index])
+                        if label_original :
+                            ai_server_data["label"] = list(set(label_original))[0]
                     if ai_server_image_encode_string :
                         ai_server_data["image"] = ai_server_image_encode_string
-                    if label_original :
-                        ai_server_data["label"] = list(set(label_original))[0]
 
                     response = requests.post("http://192.168.99.193:3001/post/req", json.dumps(ai_server_data))
-                    logging.info(response)
 
     except Exception as e:
         misc.printerr("sendDataToAiServer", e)
