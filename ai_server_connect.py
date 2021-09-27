@@ -1,8 +1,12 @@
 import requests
 import json
 import misc
+import logging
+import threading
 
 def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_string) :
+    logging.basicConfig(level=logging.DEBUG ,filename='/home/osboxes/AI_Connect_log.txt', filemode='w', format=' %(asctime)s- %(message)s')
+
     try:
         if ai_server_predictions_data :
             ai_server_predictions_data_dict = ai_server_predictions_data.json()
@@ -31,10 +35,21 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                             ai_server_data["label"] = list(set(label_original))[0]
                     if ai_server_image_encode_string :
                         ai_server_data["image"] = ai_server_image_encode_string
-
-                    response = requests.post("http://192.168.99.193:3001/post/req", json.dumps(ai_server_data))
+                    
+                    logging.info("send data to ai server")
+                    communicate_server_thred = threading.Thread(target=communicate_with_server, args=(ai_server_data,))
+                    communicate_server_thred.start()
 
     except Exception as e:
+        logging.error (str(e))
         misc.printerr("sendDataToAiServer", e)
 
+def communicate_with_server(result_data):
+    try:
+        response = requests.post("http://192.168.99.193:3001/post/req", json.dumps(result_data))
+        logging.info(response)
+
+    except Exception as err:
+        logging.error(str(e))
+    
 # send_data_to_ai_server("hello","hey")

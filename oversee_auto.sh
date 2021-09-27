@@ -14,7 +14,7 @@ do
 		procid2="`ps -ef|grep "python3 /home/osboxes/script/main.py"|grep -v grep|awk '{print $2}'`"
 		if [ -z "$procid2" ]; 
 		then
-		       	rm "$pidfile" 	
+		    rm "$pidfile" 	
 			python3 /home/osboxes/script/main.py  
 			echo "python3 main.py started"
 		else 
