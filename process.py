@@ -12,6 +12,7 @@ print("start process")
 #ai_server_connect by phyo
 import ai_server_connect
 ai_server_image_encode_string = ""
+ai_server_file_name = ""
 
 resizedFile = ""
 jsonBase64Path = ""
@@ -119,7 +120,8 @@ def convertImage(uuid_value, creationTS):
         print("Save response from TensorFlow as %s" % jsonPredPath)
 
         #ai_server_connect by phyo
-        ai_server_connect.send_data_to_ai_server(response, ai_server_image_encode_string)
+        ai_server_file_name = readconfig.CCTVName + "-" + creationTS.strftime("%Y%m%d%H%M%S") + ".jpg"
+        ai_server_connect.send_data_to_ai_server(response, ai_server_image_encode_string, ai_server_file_name)
 
     except Exception as e:
         misc.printerr("convertImage", e)
