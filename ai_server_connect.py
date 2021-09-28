@@ -24,7 +24,10 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                         "image" : "",
                     }
                     if detection_scores_original :
-                        ai_server_data["detection_scores"] = [i for i in detection_scores_original if i >= 0.4] 
+                        config_json = read_config_json()
+                        max_thread = float(config_json['max_score'])
+
+                        ai_server_data["detection_scores"] = [i for i in detection_scores_original if i >= max_thread] 
                     if ai_server_data["detection_scores"] :
                         if detection_boxes_original :
                             for i in ai_server_data["detection_scores"] :
@@ -36,7 +39,10 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                     if ai_server_image_encode_string :
                         ai_server_data["image"] = ai_server_image_encode_string
                     
-                    logging.info("send data to ai server")
+                    logging.info("send data to AI server")
+                    # logging.info(ai_server_data)
+
+                    # send data to AI Server
                     communicate_server_thred = threading.Thread(target=communicate_with_server, args=(ai_server_data,))
                     communicate_server_thred.start()
 
@@ -46,10 +52,18 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
 
 def communicate_with_server(result_data):
     try:
-        response = requests.post("http://192.168.99.193:3001/post/req", json.dumps(result_data))
+        config_json = read_config_json()
+        server_url = config_json['ai_sever_url']
+
+        response = requests.post(server_url , json.dumps(result_data))
         logging.info(response)
 
     except Exception as err:
         logging.error(str(e))
+
+def read_config_json():
+    with open ('/home/osboxes/script/config.json', 'r') as config_data:
+        data = config_data.read()
     
+    return json.loads(data)
 # send_data_to_ai_server("hello","hey")
