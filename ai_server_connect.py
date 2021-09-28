@@ -24,9 +24,12 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                         "label_name" : "",
                         "image_data" : "",
                         "file_name" : "",
+                        "data_store_table" : ""
                     }
+
+                    config_json = read_config_json()
+
                     if detection_scores_original :
-                        config_json = read_config_json()
                         max_thread = float(config_json['max_score'])
 
                         ai_server_data["label_score"] = [i for i in detection_scores_original if i >= max_thread] 
@@ -43,6 +46,8 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                         ai_server_data["image_data"] = ai_server_image_encode_string
                     if ai_server_file_name :
                         ai_server_data["file_name"] = ai_server_file_name
+                    
+                    ai_server_data["data_store_table"] = config_json['data_store_table']
                     
                     logging.info("send data to AI server")
                     # logging.info(ai_server_data)
