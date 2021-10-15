@@ -21,7 +21,7 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                     ai_server_data = {
                         "label_score" : [],
                         "detection_boxes" : [],
-                        "label_name" : "",
+                        "label_name" : [],
                         "image_data" : "",
                         "file_name" : "",
                         "data_store_table" : ""
@@ -34,14 +34,13 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
 
                         ai_server_data["label_score"] = [i for i in detection_scores_original if i >= max_thread] 
                     if ai_server_data["label_score"] :
-                        if detection_boxes_original :
+                        if detection_boxes_original and label_original:
                             for i in ai_server_data["label_score"] :
                                 index = detection_scores_original.index(i)
                                 if index == 0 or index :
                                     ai_server_data["detection_boxes"].append(detection_boxes_original[index])
+                                    ai_server_data["label_name"].append(label_original[index])
                             ai_server_data["detection_boxes"] = PhotoBoxLoc(ai_server_file_name, ai_server_data["detection_boxes"])
-                        if label_original :
-                            ai_server_data["label_name"] = list(set(label_original))[0]
                     if ai_server_image_encode_string :
                         ai_server_data["image_data"] = ai_server_image_encode_string
                     if ai_server_file_name :
