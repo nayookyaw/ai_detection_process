@@ -20,6 +20,7 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
                     label_original = predictions_data_arr["detection_classes_as_text"]
                     ai_server_data = {
                         "label_score" : [],
+                        "min_label_score" : [],
                         "detection_boxes" : [],
                         "label_name" : [],
                         "image_data" : "",
@@ -31,8 +32,10 @@ def send_data_to_ai_server(ai_server_predictions_data, ai_server_image_encode_st
 
                     if detection_scores_original :
                         max_thread = float(config_json['max_score'])
+                        min_thread = float(config_json['min_score'])
 
                         ai_server_data["label_score"] = [i for i in detection_scores_original if i >= max_thread] 
+                        ai_server_data["min_label_score"] = [i for i in detection_scores_original if i <= min_thread] 
                     if ai_server_data["label_score"] :
                         if detection_boxes_original and label_original:
                             for i in ai_server_data["label_score"] :

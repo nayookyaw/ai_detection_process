@@ -1,5 +1,6 @@
 {
     "max_score" : "0.4",
+    "min_score" : "0.2",
     "ai_sever_url" : "http://192.168.99.193:3002/post/req",
     "data_store_table" : "robot1_vm1"
 }
